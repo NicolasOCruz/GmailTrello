@@ -1,39 +1,22 @@
 package com.nicolascruz.gmailtrello.domain;
 
+import java.time.LocalDateTime;
+
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Document(collection="email")
+@Getter @Setter @NoArgsConstructor @AllArgsConstructor
 public class EmailVO extends AbstractEntity<String>{
 
 	private static final long serialVersionUID = 1L;
 	
 	private String titulo;
 	private String descricao;
-	
-	public EmailVO() {
-		
-	}
-
-	public EmailVO(String titulo, String descricao) {
-		super();
-		this.titulo = titulo;
-		this.descricao = descricao;
-	}
-
-	public String getTitulo() {
-		return titulo;
-	}
-
-	public void setTitulo(String titulo) {
-		this.titulo = titulo;
-	}
-
-	public String getDescricao() {
-		return descricao;
-	}
-
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
+	private LocalDateTime date;
 
 }
