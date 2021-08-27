@@ -2,10 +2,13 @@ package com.nicolascruz.gmailtrello.domain;
 
 import java.io.Serializable;
 
+import org.springframework.data.annotation.Id;
+
 public abstract class AbstractEntity<ID extends Serializable> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	@Id
 	private ID id;
 
 	public ID getId() {

@@ -1,5 +1,8 @@
 package com.nicolascruz.gmailtrello.domain;
 
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection="email")
 public class EmailVO extends AbstractEntity<String>{
 
 	private static final long serialVersionUID = 1L;
