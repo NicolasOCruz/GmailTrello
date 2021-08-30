@@ -78,7 +78,6 @@ public class GmailController {
 				resultado.add("Title: " + message.getPayload().getHeaders().get(3).getValue() + " Body: " + message.getSnippet());
 			}
 			
-
 		} catch (Exception e) {
 
 			System.out.println("exception cached ");
