@@ -38,6 +38,7 @@ public class GmailController {
 	private static HttpTransport httpTransport;
 	private static Gmail client;
 	private static String userId = "me";
+	private static String topicName = "projects/gmailtrello-324204/topics/GmailTopic";
 	
 	GoogleAuthorizationCodeFlow flow;
 	Credential credential;
@@ -70,19 +71,32 @@ public class GmailController {
 			client = new Gmail.Builder(httpTransport, JSON_FACTORY, credential)
 					.setApplicationName(APPLICATION_NAME).build();
 
-			String query = "vuvuzela";
+			String query = "trello";
 			ListMessagesResponse msgResponse = client.users().messages().list(userId).setQ(query).execute();
 			
 			for(Message m : msgResponse.getMessages()) {
 				Message message = client.users().messages().get(userId, m.getId()).execute();
 				resultado.add("Title: " + message.getPayload().getHeaders().get(3).getValue() + " Body: " + message.getSnippet());
 			}
+			WatchRequest watchRequest = new WatchRequest().setTopicName(topicName);
+			WatchResponse watchResponse = client.users().watch(userId, watchRequest).execute();
+			System.out.println(watchResponse);
+			
+			ListHistoryResponse historyResponse = client
+					.users()
+					.history()
+					.list(userId)
+					.setStartHistoryId(watchResponse.getHistoryId())
+					.execute();
+			
+			System.out.println(historyResponse);
+			
 			
 		} catch (Exception e) {
 
 			System.out.println("exception cached ");
 			e.printStackTrace();
-		} 
+		}  
 		
 		return ResponseEntity.ok(resultado);
 		
